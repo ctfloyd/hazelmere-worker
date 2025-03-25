@@ -40,7 +40,7 @@ func (app *Application) Init(l logger.Logger) {
 		client.NewHazelmereClient(
 			client.HazelmereClientConfig{
 				Host:           "https://api.hazelmere.xyz",
-				TimeoutMs:      1000,
+				TimeoutMs:      5000,
 				Retries:        2,
 				RetryWaitMs:    50,
 				RetryMaxWaitMs: 500,
