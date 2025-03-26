@@ -1,11 +1,11 @@
 package job
 
 import (
-	"api/src/internal/common/logger"
 	"api/src/internal/osrs"
 	"context"
 	"github.com/ctfloyd/hazelmere-api/src/pkg/api"
 	"github.com/ctfloyd/hazelmere-api/src/pkg/client"
+	"github.com/ctfloyd/hazelmere-commons/pkg/hz_logger"
 	"regexp"
 	"slices"
 	"strings"
@@ -15,10 +15,10 @@ import (
 type SnapshotUpdaterJob struct {
 	hiscoreClient   *osrs.HiscoreClient
 	hazelmereClient *client.Hazelmere
-	logger          logger.Logger
+	logger          hz_logger.Logger
 }
 
-func NewSnapshotUpdaterJob(hiscoreClient *osrs.HiscoreClient, hazelmereClient *client.Hazelmere, logger logger.Logger) *SnapshotUpdaterJob {
+func NewSnapshotUpdaterJob(hiscoreClient *osrs.HiscoreClient, hazelmereClient *client.Hazelmere, logger hz_logger.Logger) *SnapshotUpdaterJob {
 	return &SnapshotUpdaterJob{
 		hiscoreClient:   hiscoreClient,
 		hazelmereClient: hazelmereClient,

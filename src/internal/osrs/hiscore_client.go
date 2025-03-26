@@ -2,7 +2,7 @@ package osrs
 
 import (
 	"fmt"
-	"github.com/ctfloyd/hazelmere-api/src/pkg/client"
+	"github.com/ctfloyd/hazelmere-commons/pkg/hz_client"
 	"net/url"
 )
 
@@ -27,10 +27,10 @@ type Hiscore struct {
 }
 
 type HiscoreClient struct {
-	httpClient *client.HazelmereClient
+	httpClient *hz_client.HttpClient
 }
 
-func NewHiscoreClient(httpClient *client.HazelmereClient) *HiscoreClient {
+func NewHiscoreClient(httpClient *hz_client.HttpClient) *HiscoreClient {
 	return &HiscoreClient{httpClient}
 }
 
