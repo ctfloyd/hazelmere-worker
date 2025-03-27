@@ -29,7 +29,7 @@ func (app *Application) Init(l hz_logger.Logger) {
 	hsClient := osrs.NewHiscoreClient(hz_client.NewHttpClient(
 		hz_client.HttpClientConfig{
 			Host:           "https://secure.runescape.com/m=hiscore_oldschool/index_lite.json",
-			TimeoutMs:      5000,
+			TimeoutMs:      20000,
 			Retries:        2,
 			RetryWaitMs:    50,
 			RetryMaxWaitMs: 500,
