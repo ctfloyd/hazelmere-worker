@@ -1,6 +1,7 @@
 package snapshot
 
 import (
+	"context"
 	"errors"
 	"github.com/ctfloyd/hazelmere-api/src/pkg/api"
 	"github.com/ctfloyd/hazelmere-api/src/pkg/client"
@@ -14,6 +15,7 @@ import (
 
 var ErrSnapshotService = errors.New("snapshot service error")
 var ErrUserNotFound = errors.New("user not found")
+var ErrRunescapeHiscoreTimeout = errors.New("runescape hiscore timeout")
 
 type SnapshotService interface {
 	MakeSnapshotForUser(userId string) (api.HiscoreSnapshot, error)
@@ -48,7 +50,11 @@ func (ss *snapshotService) MakeSnapshotForUser(userId string) (api.HiscoreSnapsh
 
 func (ss *snapshotService) MakeSnapshot(user api.User) (api.HiscoreSnapshot, error) {
 	hiscore, err := ss.hiscoreClient.GetHiscore(user.RunescapeName)
+
 	if err != nil {
+		if errors.Is(err, context.DeadlineExceeded) {
+			return api.HiscoreSnapshot{}, ErrRunescapeHiscoreTimeout
+		}
 		return api.HiscoreSnapshot{}, errors.Join(ErrSnapshotService, err)
 	}
 

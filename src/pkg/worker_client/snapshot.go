@@ -7,7 +7,7 @@ import (
 	"github.com/ctfloyd/hazelmere-worker/src/pkg/worker_api"
 )
 
-var ErrUserNotFound = errors.Join(ErrHazelmereWorkerClient, errors.New("user not found"))
+var ErrRunescapeHiscoreTimeout = errors.Join(ErrHazelmereWorkerClient, errors.New("runescape hiscore timeout"))
 
 type Snapshot struct {
 	prefix string
@@ -16,7 +16,7 @@ type Snapshot struct {
 
 func newSnapshot(client *hz_client.HttpClient) *Snapshot {
 	mappings := map[string]error{
-		worker_api.ErrorCodeUserNotFound: ErrUserNotFound,
+		worker_api.ErrorRunescapeHiscoreTimeout: ErrRunescapeHiscoreTimeout,
 	}
 	client.AddErrorMappings(mappings)
 
