@@ -32,7 +32,7 @@ func (sh *SnapshotHandler) CreateSnapshot(w http.ResponseWriter, r *http.Request
 	snapshot, err := sh.service.MakeSnapshotForUser(userId)
 	if err != nil {
 		if errors.Is(err, ErrRunescapeHiscoreTimeout) {
-			hz_handler.Error(w, service_error., "User does not exist.")
+			hz_handler.Error(w, service_error.RunescapeHiscoreTimeout, "User does not exist.")
 		}
 		sh.logger.ErrorArgs(r.Context(), "Could not create on demand snapshot: %v", err)
 		hz_handler.Error(w, service_error.Internal, "Could not create on demand snapshot.")
