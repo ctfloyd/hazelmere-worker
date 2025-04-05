@@ -1,0 +1,21 @@
+{
+  "log": {
+    "level": "INFO"
+  },
+  "clients": {
+    "hazelmere": {
+      "host": "https://hazelmere-api.railway.internal",
+      "timeout": 1000,
+      "retries": 0,
+      "retryWaitMs": 0,
+      "retryMaxWaitMs": 0
+    },
+    "hiscore": {
+      "host":           "https://secure.runescape.com/m=hiscore_oldschool/index_lite.json",
+      "timeout":        20000,
+      "retries":        2,
+      "retryWaitMs":    50,
+      "retryMaxWaitMs": 500
+    }
+  }
+}

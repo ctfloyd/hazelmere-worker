@@ -13,7 +13,7 @@ require (
 
 require (
 	github.com/ctfloyd/hazelmere-api v0.0.11 // indirect
-	github.com/ctfloyd/hazelmere-commons v0.0.5 // indirect
+	github.com/ctfloyd/hazelmere-commons v0.0.11 // indirect
 	github.com/go-co-op/gocron/v2 v2.16.1 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect

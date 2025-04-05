@@ -1,8 +1,8 @@
-package job
+package snapshot
 
 import (
 	"api/src/internal/osrs"
-	"context"
+	"errors"
 	"github.com/ctfloyd/hazelmere-api/src/pkg/api"
 	"github.com/ctfloyd/hazelmere-api/src/pkg/client"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_logger"
@@ -12,57 +12,58 @@ import (
 	"time"
 )
 
-type SnapshotUpdaterJob struct {
-	hiscoreClient   *osrs.HiscoreClient
-	hazelmereClient *client.Hazelmere
-	logger          hz_logger.Logger
+var ErrSnapshotService = errors.New("snapshot service error")
+var ErrUserNotFound = errors.New("user not found")
+
+type SnapshotService interface {
+	MakeSnapshotForUser(userId string) (api.HiscoreSnapshot, error)
+	MakeSnapshot(user api.User) (api.HiscoreSnapshot, error)
 }
 
-func NewSnapshotUpdaterJob(hiscoreClient *osrs.HiscoreClient, hazelmereClient *client.Hazelmere, logger hz_logger.Logger) *SnapshotUpdaterJob {
-	return &SnapshotUpdaterJob{
-		hiscoreClient:   hiscoreClient,
-		hazelmereClient: hazelmereClient,
-		logger:          logger,
+type snapshotService struct {
+	logger        hz_logger.Logger
+	hiscoreClient *osrs.HiscoreClient
+	hazelmere     *client.Hazelmere
+}
+
+func NewSnapshotService(logger hz_logger.Logger, hiscoreClient *osrs.HiscoreClient, hazelmere *client.Hazelmere) SnapshotService {
+	return &snapshotService{
+		logger:        logger,
+		hiscoreClient: hiscoreClient,
+		hazelmere:     hazelmere,
 	}
 }
 
-func (job SnapshotUpdaterJob) Run() {
-	ctx := context.Background()
-
-	job.logger.Info(ctx, "Running the snapshot updater job.")
-
-	usersResponse, err := job.hazelmereClient.User.GetAllUsers()
+func (ss *snapshotService) MakeSnapshotForUser(userId string) (api.HiscoreSnapshot, error) {
+	user, err := ss.hazelmere.User.GetUserById(userId)
 	if err != nil {
-		job.logger.Error(ctx, "An error occurred while getting all users: "+err.Error())
-		return
-	}
-
-	for _, user := range usersResponse.Users {
-		if user.TrackingStatus == api.TrackingStatusEnabled {
-			job.logger.InfoArgs(ctx, "Generating snapshot for user: "+user.RunescapeName)
-
-			hiscore, err := job.hiscoreClient.GetHiscore(user.RunescapeName)
-			if err != nil {
-				job.logger.Error(ctx, "An error occurred while getting hiscore: "+err.Error())
-				continue
-			}
-
-			snapshot := makeSnapshot(user, hiscore)
-
-			snapshotRequest := api.CreateSnapshotRequest{
-				Snapshot: snapshot,
-			}
-			_, err = job.hazelmereClient.Snapshot.CreateSnapshot(snapshotRequest)
-			if err != nil {
-				job.logger.Error(ctx, "An error occurred while creating snapshot: "+err.Error())
-				continue
-			}
-
-			job.logger.Info(ctx, "Snapshot created successfully!")
-		} else {
-			job.logger.InfoArgs(ctx, "Skipping generating snapshot for user: "+user.RunescapeName+" because tracking is disabled.")
+		if errors.Is(err, client.ErrUserNotFound) {
+			return api.HiscoreSnapshot{}, ErrUserNotFound
 		}
+		return api.HiscoreSnapshot{}, errors.Join(ErrSnapshotService, err)
 	}
+
+	return ss.MakeSnapshot(user.User)
+}
+
+func (ss *snapshotService) MakeSnapshot(user api.User) (api.HiscoreSnapshot, error) {
+	hiscore, err := ss.hiscoreClient.GetHiscore(user.RunescapeName)
+	if err != nil {
+		return api.HiscoreSnapshot{}, errors.Join(ErrSnapshotService, err)
+	}
+
+	snapshot := makeSnapshot(user, hiscore)
+
+	snapshotRequest := api.CreateSnapshotRequest{
+		Snapshot: snapshot,
+	}
+
+	response, err := ss.hazelmere.Snapshot.CreateSnapshot(snapshotRequest)
+	if err != nil {
+		return api.HiscoreSnapshot{}, errors.Join(ErrSnapshotService, err)
+	}
+
+	return response.Snapshot, nil
 }
 
 func makeSnapshot(user api.User, hiscore osrs.Hiscore) api.HiscoreSnapshot {
