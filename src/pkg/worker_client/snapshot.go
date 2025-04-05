@@ -1,10 +1,10 @@
 package worker_client
 
 import (
-	"api/src/pkg/worker_api"
 	"errors"
 	"fmt"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_client"
+	"github.com/ctfloyd/hazelmere-worker/src/pkg/worker_api"
 )
 
 var ErrUserNotFound = errors.Join(ErrHazelmereWorkerClient, errors.New("user not found"))
