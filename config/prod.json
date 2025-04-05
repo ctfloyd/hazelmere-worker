@@ -4,7 +4,7 @@
   },
   "clients": {
     "hazelmere": {
-      "host": "http://hazelmere-api.railway.internal",
+      "host": "https://hazelmere-api.railway.internal",
       "timeout": 1000,
       "retries": 0,
       "retryWaitMs": 0,
