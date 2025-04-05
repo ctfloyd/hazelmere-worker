@@ -1,10 +1,10 @@
 package main
 
 import (
-	"api/src/internal"
 	"context"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_config"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_logger"
+	"github.com/ctfloyd/hazelmere-worker/src/internal"
 	"os"
 	"os/signal"
 )

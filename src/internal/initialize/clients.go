@@ -1,12 +1,12 @@
 package initialize
 
 import (
-	"api/src/internal/osrs"
 	"context"
 	"github.com/ctfloyd/hazelmere-api/src/pkg/client"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_client"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_config"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_logger"
+	"github.com/ctfloyd/hazelmere-worker/src/internal/osrs"
 )
 
 func InitializeHiscoreClient(config *hz_config.Config, logger hz_logger.Logger) *osrs.HiscoreClient {

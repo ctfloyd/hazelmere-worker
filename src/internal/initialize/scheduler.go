@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"api/src/internal/snapshot"
+	"github.com/ctfloyd/hazelmere-worker/src/internal/snapshot"
 	"github.com/go-co-op/gocron/v2"
 	"time"
 )

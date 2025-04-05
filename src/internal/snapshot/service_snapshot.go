@@ -1,11 +1,11 @@
 package snapshot
 
 import (
-	"api/src/internal/osrs"
 	"errors"
 	"github.com/ctfloyd/hazelmere-api/src/pkg/api"
 	"github.com/ctfloyd/hazelmere-api/src/pkg/client"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_logger"
+	"github.com/ctfloyd/hazelmere-worker/src/internal/osrs"
 	"regexp"
 	"slices"
 	"strings"

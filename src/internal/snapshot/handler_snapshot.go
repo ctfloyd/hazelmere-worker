@@ -1,12 +1,12 @@
 package snapshot
 
 import (
-	"api/src/internal/service_error"
-	"api/src/pkg/worker_api"
 	"errors"
 	"fmt"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_handler"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_logger"
+	"github.com/ctfloyd/hazelmere-worker/src/internal/service_error"
+	"github.com/ctfloyd/hazelmere-worker/src/pkg/worker_api"
 	"github.com/go-chi/chi/v5"
 	"net/http"
 )

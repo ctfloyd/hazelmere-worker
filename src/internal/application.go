@@ -1,13 +1,13 @@
 package internal
 
 import (
-	"api/src/internal/initialize"
-	"api/src/internal/snapshot"
 	"context"
 	"fmt"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_config"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_handler"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_logger"
+	"github.com/ctfloyd/hazelmere-worker/src/internal/initialize"
+	"github.com/ctfloyd/hazelmere-worker/src/internal/snapshot"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-co-op/gocron/v2"
 	"net/http"
