@@ -8,7 +8,8 @@
       "timeout": 1000,
       "retries": 0,
       "retryWaitMs": 0,
-      "retryMaxWaitMs": 0
+      "retryMaxWaitMs": 0,
+      "token": "{{API_TOKEN}}"
     },
     "hiscore": {
       "host":           "https://secure.runescape.com/m=hiscore_oldschool/index_lite.json",

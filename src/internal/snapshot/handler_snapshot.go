@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_handler"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_logger"
+	"github.com/ctfloyd/hazelmere-worker/src/internal/common/handler"
 	"github.com/ctfloyd/hazelmere-worker/src/internal/service_error"
 	"github.com/ctfloyd/hazelmere-worker/src/pkg/worker_api"
 	"github.com/go-chi/chi/v5"
@@ -20,8 +21,8 @@ func NewSnapshotHandler(logger hz_logger.Logger, service SnapshotService) *Snaps
 	return &SnapshotHandler{logger, service}
 }
 
-func (sh *SnapshotHandler) RegisterRoutes(mux *chi.Mux, version hz_handler.ApiVersion) {
-	if version == hz_handler.ApiVersionV1 {
+func (sh *SnapshotHandler) RegisterRoutes(mux *chi.Mux, version handler.ApiVersion) {
+	if version == handler.ApiVersionV1 {
 		mux.Get(fmt.Sprintf("/v1/snapshot/on-demand/{userId:%s}", hz_handler.RegexUuid), sh.CreateSnapshot)
 	}
 }

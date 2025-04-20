@@ -3,8 +3,8 @@ module github.com/ctfloyd/hazelmere-worker
 go 1.24.0
 
 require (
-	github.com/ctfloyd/hazelmere-api v0.0.11
-	github.com/ctfloyd/hazelmere-commons v0.0.11
+	github.com/ctfloyd/hazelmere-api v0.0.24
+	github.com/ctfloyd/hazelmere-commons v0.0.16
 	github.com/go-chi/chi/v5 v5.2.1
 	github.com/go-co-op/gocron/v2 v2.16.1
 )

@@ -23,7 +23,7 @@ func InitializeHiscoreClient(config *hz_config.Config, logger hz_logger.Logger) 
 }
 
 func InitializeHazelmereClient(config *hz_config.Config, logger hz_logger.Logger) *client.Hazelmere {
-	return client.NewHazelmere(
+	hazelmere, err := client.NewHazelmere(
 		hz_client.NewHttpClient(
 			hz_client.HttpClientConfig{
 				Host:           config.ValueOrPanic("clients.hazelmere.host"),
@@ -34,5 +34,13 @@ func InitializeHazelmereClient(config *hz_config.Config, logger hz_logger.Logger
 			},
 			func(msg string) { logger.Error(context.Background(), msg) },
 		),
+		client.HazelmereConfig{
+			Token:              config.ValueOrPanic("clients.hazelmere.token"),
+			CallingApplication: "hazelmere-worker",
+		},
 	)
+	if err != nil {
+		panic(err)
+	}
+	return hazelmere
 }

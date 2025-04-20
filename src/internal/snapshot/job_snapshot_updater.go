@@ -2,7 +2,6 @@ package snapshot
 
 import (
 	"context"
-	"github.com/ctfloyd/hazelmere-api/src/pkg/api"
 	"github.com/ctfloyd/hazelmere-api/src/pkg/client"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_logger"
 )
@@ -33,7 +32,7 @@ func (job SnapshotUpdaterJob) Run() {
 	}
 
 	for _, user := range usersResponse.Users {
-		if user.TrackingStatus == api.TrackingStatusEnabled {
+		if user.IsTrackingEnabled() {
 			job.logger.InfoArgs(ctx, "Generating snapshot for user: %s", user.RunescapeName)
 
 			_, err := job.snapshotService.MakeSnapshot(user)

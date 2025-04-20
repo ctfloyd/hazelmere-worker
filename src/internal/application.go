@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_config"
-	"github.com/ctfloyd/hazelmere-commons/pkg/hz_handler"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_logger"
+	"github.com/ctfloyd/hazelmere-worker/src/internal/common/handler"
 	"github.com/ctfloyd/hazelmere-worker/src/internal/initialize"
 	"github.com/ctfloyd/hazelmere-worker/src/internal/snapshot"
 	"github.com/go-chi/chi/v5"
@@ -34,11 +34,11 @@ func (app *Application) Init(config *hz_config.Config, logger hz_logger.Logger) 
 	app.Router = router
 
 	snapshotHandler := snapshot.NewSnapshotHandler(logger, snapshotService)
-	handlers := []hz_handler.HazelmereHandler{
+	handlers := []handler.WorkerHandler{
 		snapshotHandler,
 	}
-	for _, handler := range handlers {
-		handler.RegisterRoutes(router, hz_handler.ApiVersionV1)
+	for _, h := range handlers {
+		h.RegisterRoutes(router, handler.ApiVersionV1)
 	}
 
 	logger.Info(context.TODO(), "Done init.")
