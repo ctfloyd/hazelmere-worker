@@ -12,7 +12,7 @@
       "token": "{{API_TOKEN}}"
     },
     "hiscore": {
-      "host":           "https://secure.runescape.com/m=hiscore_oldschool/index_lite.json",
+      "host":           "https://secure.runescape.com",
       "timeout":        20000,
       "retries":        2,
       "retryWaitMs":    50,

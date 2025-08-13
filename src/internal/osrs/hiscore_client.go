@@ -35,7 +35,17 @@ func NewHiscoreClient(httpClient *hz_client.HttpClient) *HiscoreClient {
 }
 
 func (hc *HiscoreClient) GetHiscore(username string) (Hiscore, error) {
-	path := fmt.Sprintf("%s?player=%s", hc.httpClient.GetHost(), url.PathEscape(username))
+	path := fmt.Sprintf("%s/m=hiscore_oldschool/index_lite.json?player=%s", hc.httpClient.GetHost(), url.PathEscape(username))
+	var hiscore Hiscore
+	err := hc.httpClient.Get(path, &hiscore)
+	if err != nil {
+		return Hiscore{}, err
+	}
+	return hiscore, nil
+}
+
+func (hc *HiscoreClient) GetIronmanHiscore(username string) (Hiscore, error) {
+	path := fmt.Sprintf("%s/m=hiscore_oldschool_ironman/index_lite.json?player=%s", hc.httpClient.GetHost(), url.PathEscape(username))
 	var hiscore Hiscore
 	err := hc.httpClient.Get(path, &hiscore)
 	if err != nil {

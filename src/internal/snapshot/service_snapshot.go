@@ -49,8 +49,7 @@ func (ss *snapshotService) MakeSnapshotForUser(userId string) (api.HiscoreSnapsh
 }
 
 func (ss *snapshotService) MakeSnapshot(user api.User) (api.HiscoreSnapshot, error) {
-	hiscore, err := ss.hiscoreClient.GetHiscore(user.RunescapeName)
-
+	hiscore, err := ss.getHiscoreForUser(user)
 	if err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
 			return api.HiscoreSnapshot{}, ErrRunescapeHiscoreTimeout
@@ -70,6 +69,14 @@ func (ss *snapshotService) MakeSnapshot(user api.User) (api.HiscoreSnapshot, err
 	}
 
 	return response.Snapshot, nil
+}
+
+func (ss *snapshotService) getHiscoreForUser(user api.User) (osrs.Hiscore, error) {
+	if user.IsNormal() || user.IsGroupIronman() {
+		return ss.hiscoreClient.GetHiscore(user.RunescapeName)
+	} else {
+		return ss.hiscoreClient.GetIronmanHiscore(user.RunescapeName)
+	}
 }
 
 func makeSnapshot(user api.User, hiscore osrs.Hiscore) api.HiscoreSnapshot {
