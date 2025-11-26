@@ -7,6 +7,10 @@ github.com/ctfloyd/hazelmere-api v0.0.33 h1:msbdp6IX6zMYvvioWGnyz5m+QAuDRcr7TABk
 github.com/ctfloyd/hazelmere-api v0.0.33/go.mod h1:RgHHbKYp40hV1QFV09EkYbejnuWSiT+8G54hcWHymQI=
 github.com/ctfloyd/hazelmere-api v0.0.35 h1:O9Qm9InxJ5IhWiTOIA7LzxE4elDS05V63VX9s8WHfwI=
 github.com/ctfloyd/hazelmere-api v0.0.35/go.mod h1:RgHHbKYp40hV1QFV09EkYbejnuWSiT+8G54hcWHymQI=
+github.com/ctfloyd/hazelmere-api v0.0.41 h1:JEXqFlgWoR3ws/nkmjnVILXABATSzJSj8N6xZaA7XGY=
+github.com/ctfloyd/hazelmere-api v0.0.41/go.mod h1:RgHHbKYp40hV1QFV09EkYbejnuWSiT+8G54hcWHymQI=
+github.com/ctfloyd/hazelmere-api v0.0.43 h1:w3FWz0VBsxeF5evtztS6RCopIrZBNr/KcYEdLf64ZUg=
+github.com/ctfloyd/hazelmere-api v0.0.43/go.mod h1:RgHHbKYp40hV1QFV09EkYbejnuWSiT+8G54hcWHymQI=
 github.com/ctfloyd/hazelmere-commons v0.0.16 h1:IhOMXJO6xyt+13+ATPjfAGwb6eB5CF2xNSqcHjy9EG4=
 github.com/ctfloyd/hazelmere-commons v0.0.16/go.mod h1:Ai01Qc07jqj3xdfVt5HlXJ4JskRutE4hhKpZNH5F28M=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
